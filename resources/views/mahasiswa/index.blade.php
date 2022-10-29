@@ -1,3 +1,4 @@
+{{-- Steven Sutantoh (03081200017) --}}
 <?php
     use Illuminate\Support\Facades\DB;
 ?>
@@ -38,6 +39,7 @@
                 $term = $data->term;
                 $total_sks = $data->total_sks;
                 echo "
+                <hr>
                     <div class='container'>
                         <div class='row'>
                             <div class='col-2'>
@@ -71,20 +73,46 @@
                                 $total_sks
                             </div>
                         </div>
+                        <div class='row'>
+                            <div class='col-2'>
+                                IP 
+                            </div>
+                            <div class='col-4'>
+                                4.00
+                            </div>
+                        </div>
                     </div>
                 ";
             };
         ?>
-
+        <hr>
         <h6>Matakuliah yang diambil</h6>
+        <hr>
         <table class="table table-striped">
             <tr>
                 <th>No </th>
                 <th>Kode Matakuliah</th>
                 <th>Nama Matakuliah</th>
                 <th>SKS</th>
+                <th>Nilai Huruf</th>
             </tr>
             <?php
+                $mhss = DB::select("
+                SELECT StudentID,nama,kode_matkul,nama_matkul,sks,huruf FROM khs_detail_view");
+                $no=1;
+        
+                foreach ($mhss as $mhs) {
+                    echo "<tr>";
+                    echo "<td>".$no."</td>";
+                    echo "<td>".$mhs->kode_matkul."</td>";
+                    echo "<td>".$mhs->nama_matkul."</td>";
+                    echo "<td>".$mhs->sks."</td>";
+                    echo "<td>".$mhs->huruf."</td>";
+                    echo "</tr>";
+                    $no+=1;
+                }
+            ?> 
+            {{-- <?php
                 $detail_major_data = DB::select("SELECT * FROM student_detail_major WHERE student_id = '03081200017'");
                 $no = 1;
                 foreach($detail_major_data as $major){
@@ -101,7 +129,33 @@
                     ";
                     $no++;
                 }
-            ?>
+            ?> --}}
+                    <table style="padding: 30px;">
+            {{-- <tr>
+            <th>No</th>
+                <th>kode matakuliah</th>
+                <th>Nama matakuliah</th>
+                <th>SKS</th>
+                <th>Nilai Huruf</th>
+            </tr> --}}
+
+        {{-- <?php
+    $mhss = DB::select("
+        SELECT StudentID,nama,kode_matkul,nama_matkul,sks,huruf FROM khs_detail_view");
+        $no=1;
+        
+        foreach ($mhss as $mhs) {
+            echo "<tr>";
+            echo "<td>".$no."</td>";
+            echo "<td>".$mhs->kode_matkul."</td>";
+            echo "<td>".$mhs->nama_matkul."</td>";
+            echo "<td>".$mhs->sks."</td>";
+            echo "<td>".$mhs->huruf."</td>";
+            echo "</tr>";
+                $no+=1;
+        }
+        ?>     --}}
+        </table>
         </table>
 </body>
 </html>
